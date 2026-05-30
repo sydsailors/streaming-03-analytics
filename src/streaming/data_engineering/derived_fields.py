@@ -108,10 +108,14 @@ def enrich_message(
     tax_amount = compute_tax_amount(total_price, tax_rate)
 
     total = round(total_price + tax_amount, 2)
+
+    effective_tax_rate = round(tax_amount / total_price, 4) if total_price > 0 else 0.0
+
     return {
         **row,
         "subtotal": total_price,
         "tax_amount": tax_amount,
+        "effective_tax_rate": effective_tax_rate,
         "total": total,
     }
 
